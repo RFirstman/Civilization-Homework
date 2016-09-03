@@ -9,7 +9,7 @@ public class Civilization {
     static int happiness = 10, numCities = 0;
     static double gold = 20, resources = 30;
     static Civilization civObj = new Civilization();
-    static DecimalFormat decimalFormat = new DecimalFormat("###.0#");
+    static DecimalFormat decimalFormat = new DecimalFormat("###.00");
     static String[] civArray = {"American", "Zulu", "English",
     "Chinese"};
     static String[] choiceArray = {"Settle a City", "Demolish a City",
@@ -93,21 +93,58 @@ public class Civilization {
 
     //Settles a new city
     public static void settleCity() {
+        //Displays a list of cities
         System.out.println("\nCities:");
         for (int i = 0; i < cityArray.length; i++)
             if (cityArray[i] != null)
                 System.out.println("\t" + cityArray[i]);
+        //Ensures the user has at least one slot for a city
         if (numCities < 5) {
             for (int i = 0; i < 5; i++)
-                if (cityArray[i] != null) {
-                 System.out.println("What would you like to name your city?");
-                 civArray[i] = scan.nextLine();
-                 System.out.println("You have settled " + civArray[i] + "!");
+                if (cityArray[i] == null) {
+                    System.out.println("\nWhat would you like to name your city?");
+                    cityArray[i] = scan.nextLine();
+                    System.out.println("You have settled " + cityArray[i] + "!");
+                    break;
                 }
             numCities++;
             gold -= 15.5;
         }
         else
             System.out.println("You have too many cities.");
+    }
+
+    //Demolishes a city
+    public static void demolishCity() {
+        boolean hasChosen = false;
+        String city = "a";
+
+        //Ensures that the player has enough cities to demolish one
+        if (numCities > 1) {
+            System.out.println("\nCities:");
+            for (int i = 0; i < cityArray.length; i++)
+                if (cityArray[i] != null)
+                    System.out.println("\t" + cityArray[i]);
+
+            //Ensure city input is valid
+            while (hasChosen == false) {
+                System.out.println("\nChoose a city to demolish:");
+                city = scan.nextLine();
+
+                for (int i = 0; i < cityArray.length; i++)
+                    if (city.equalsIgnoreCase(cityArray[i]))
+                        hasChosen = true;
+            }
+
+            //Reads through cityArray to find the city to delete.
+            for (int i = 0; i < cityArray.length; i++)
+                if (city.equalsIgnoreCase(cityArray[i])) {
+                    System.out.println("You have destroyed " + city);
+                    cityArray[i] = null;
+                }
+            resources += 1.5;
+        }
+        else
+            System.out.println("You do not have enough cities.");
     }
 }
