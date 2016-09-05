@@ -12,9 +12,10 @@ public class Civilization {
     static Civilization civObj = new Civilization();
     static DecimalFormat decimalFormat = new DecimalFormat("###.00");
     static String[] civArray = {"American", "Zulu", "English",
-    "Chinese"};
+        "Chinese"};
     static String[] choiceArray = {"Settle a City", "Demolish a City",
-    "Build Militia", "Research Technology", "Attack Enemy City", "End Turn"};
+        "Build Militia", "Research Technology", "Attack Enemy City",
+        "End Turn"};
 
 
     public static void main(String[] args) {
@@ -31,7 +32,7 @@ public class Civilization {
         cityArray[0] = scan.nextLine();
         numCities++;
 
-        while(playing) {
+        while (playing) {
             //Your game code here
             civObj.turn();
 
@@ -39,8 +40,7 @@ public class Civilization {
                 System.out.println("You have reached 20 Technology Points!");
                 System.out.println("You win!");
                 playing = false;
-            }
-            else if (attacks == 10) {
+            } else if (attacks == 10) {
                 System.out.println("You have destroyed the enemy city!");
                 System.out.println("You win!");
                 playing = false;
@@ -52,52 +52,57 @@ public class Civilization {
 
     //Method to handle all turn-related actions
     public static void turn() {
-        boolean hasChosen = false;
+        boolean hasntChosen = true;
         String choice = "";
 
         //Adds per-turn resources, gold, and happiness
         if (turn != 0) {
             resources++;
-            if (happiness > 20)
-                resources = resources + 5*numCities;
-            gold = gold + 3*numCities;
-            if (happiness % 2 == 0)
+            if (happiness > 20) {
+                resources = resources + (5 * numCities);
+            }
+            gold = gold + (3 * numCities);
+            if (happiness % 2 == 0) {
                 happiness++;
-            else
+            } else {
                 happiness = happiness - 3;
+            }
         }
 
         //Takes action input and ensures that it is valid
         System.out.println("\nTurn " + turn);
         civObj.displayStatus();
         System.out.println("\nWhat would you like to do this turn?");
-        for (String str : choiceArray)
+        for (String str : choiceArray) {
             System.out.println("\n" + str);
+        }
 
-        while (hasChosen == false) {
+        while (hasntChosen) {
             System.out.println("\nChoose an action.");
             choice = scan.nextLine();
 
-            for (int i = 0; i < choiceArray.length; i++)
+            for (int i = 0; i < choiceArray.length; i++) {
                 if (choice.equalsIgnoreCase(choiceArray[i])) {
-                    hasChosen = true;
+                    hasntChosen = false;
                 }
+            }
         }
 
         //Calls corresponding method for the user's choice
         // or increments turn if user chooses "End Turn"
-        if (choice.equalsIgnoreCase(choiceArray[0]))
+        if (choice.equalsIgnoreCase(choiceArray[0])) {
             civObj.settleCity();
-        else if (choice.equalsIgnoreCase(choiceArray[1]))
+        } else if (choice.equalsIgnoreCase(choiceArray[1])) {
             civObj.demolishCity();
-        else if (choice.equalsIgnoreCase(choiceArray[2]))
+        } else if (choice.equalsIgnoreCase(choiceArray[2])) {
             civObj.buildMilitia();
-        else if (choice.equalsIgnoreCase(choiceArray[3]))
+        } else if (choice.equalsIgnoreCase(choiceArray[3])) {
             civObj.researchTechnology();
-        else if (choice.equalsIgnoreCase(choiceArray[4]))
+        } else if (choice.equalsIgnoreCase(choiceArray[4])) {
             civObj.attackCity();
-        else
+        } else {
             turn++;
+        }
     }
 
     //Method that displays all resources, properties, and cities
@@ -110,31 +115,36 @@ public class Civilization {
             + "\nTechnology Points\t" + techPoints);
 
         System.out.println("\nCities:");
-        for (int i = 0; i < cityArray.length; i++)
-            if (cityArray[i] != null)
+        for (int i = 0; i < cityArray.length; i++) {
+            if (cityArray[i] != null) {
                 System.out.println("\t" + cityArray[i]);
+            }
+        }
     }
 
     //Method that takes a string array of civilization choices
     // and takes user input. Also compares the input with the
     // array to ensure valid input.
     public static String chooseCiv(String[] civilizations) {
-        boolean hasChosen = false;
+        boolean hasntChosen = true;
         String civ = "";
         //Scanner scan = new Scanner(System.in);
 
         System.out.println("\nPlease choose a civilization."
             + "\nCivilizations:\n");
-        for (String str : civilizations)
+        for (String str : civilizations) {
             System.out.println(str);
+        }
 
-        while (hasChosen == false) {
+        while (hasntChosen) {
             System.out.println("\nEnter your civilization:");
             civ = scan.nextLine();
 
-            for (int i = 0; i < civilizations.length; i++)
-                if (civ.equalsIgnoreCase(civilizations[i]))
-                        hasChosen = true;
+            for (int i = 0; i < civilizations.length; i++) {
+                if (civ.equalsIgnoreCase(civilizations[i])) {
+                    hasntChosen = false;
+                }
+            }
         }
         return civ;
     }
@@ -144,60 +154,70 @@ public class Civilization {
     public static void settleCity() {
         //Displays a list of cities
         System.out.println("\nCities:");
-        for (int i = 0; i < cityArray.length; i++)
-            if (cityArray[i] != null)
+        for (int i = 0; i < cityArray.length; i++) {
+            if (cityArray[i] != null) {
                 System.out.println("\t" + cityArray[i]);
+            }
+        }
         //Ensures the user has at least one slot for a city
         if (numCities < 5) {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++) {
                 if (cityArray[i] == null) {
-                    System.out.println("\nWhat would you like to name your city?");
+                    System.out.println("\nWhat would you like to name your "
+                        + "city?");
                     cityArray[i] = scan.nextLine();
-                    System.out.println("You have settled " + cityArray[i] + "!");
+                    System.out.println("You have settled " + cityArray[i]
+                        + "!");
                     break;
                 }
+            }
             numCities++;
             gold -= 15.5;
-        }
-        else
+        } else {
             System.out.println("\nYou have too many cities.");
+        }
 
         turn++;
     }
 
     //Demolishes a city
     public static void demolishCity() {
-        boolean hasChosen = false;
+        boolean hasntChosen = true;
         String city = "a";
 
         //Ensures that the player has enough cities to demolish one
         if (numCities > 1) {
             System.out.println("\nCities:");
-            for (int i = 0; i < cityArray.length; i++)
-                if (cityArray[i] != null)
+            for (int i = 0; i < cityArray.length; i++) {
+                if (cityArray[i] != null) {
                     System.out.println("\t" + cityArray[i]);
+                }
+            }
 
             //Ensure city input is valid
-            while (hasChosen == false) {
+            while (hasntChosen) {
                 System.out.println("\nChoose a city to demolish:");
                 city = scan.nextLine();
 
-                for (int i = 0; i < cityArray.length; i++)
-                    if (city.equalsIgnoreCase(cityArray[i]))
-                        hasChosen = true;
+                for (int i = 0; i < cityArray.length; i++) {
+                    if (city.equalsIgnoreCase(cityArray[i])) {
+                        hasntChosen = false;
+                    }
+                }
             }
 
             //Reads through cityArray to find the city to delete.
-            for (int i = 0; i < cityArray.length; i++)
+            for (int i = 0; i < cityArray.length; i++) {
                 if (city.equalsIgnoreCase(cityArray[i])) {
                     System.out.println("You have destroyed " + city);
                     cityArray[i] = null;
                 }
+            }
             numCities--;
             resources += 1.5;
-        }
-        else
+        } else {
             System.out.println("\nYou do not have enough cities.");
+        }
 
         turn++;
     }
@@ -209,9 +229,9 @@ public class Civilization {
             gold -= 5;
             resources -= 3;
             System.out.println("\nYou have expanded your military!");
-        }
-        else
+        } else {
             System.out.println("\nYou lack sufficient materials.");
+        }
 
         turn++;
     }
@@ -223,9 +243,9 @@ public class Civilization {
             gold -= 50;
             resources -= 2;
             System.out.println("\nYou have gained a Technology Point!");
-        }
-        else
+        } else {
             System.out.println("\nYou lack sufficient materials.");
+        }
 
         turn++;
     }
@@ -237,9 +257,9 @@ public class Civilization {
             militaryUnits -= 6;
             happiness -= 3;
             System.out.println("\nYou have attacked an enemy city!");
-        }
-        else
+        } else {
             System.out.println("\nYou lack sufficient materials.");
+        }
 
         turn++;
     }
