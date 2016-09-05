@@ -1,12 +1,13 @@
 import java.util.Scanner;
 import java.text.DecimalFormat;
 
+//To-do: Implement a turn and action selection system.
 public class Civilization {
     static boolean playing = true;
     static Scanner scan = new Scanner(System.in);
     static String[] cityArray = new String[5];
-    static int atttacks = 0, militaryUnits = 0, techPoints = 0;
-    static int happiness = 10, numCities = 0;
+    static int attacks = 0, militaryUnits = 0, techPoints = 0;
+    static int happiness = 10, numCities = 0, turn = 0;
     static double gold = 20, resources = 30;
     static Civilization civObj = new Civilization();
     static DecimalFormat decimalFormat = new DecimalFormat("###.00");
@@ -18,31 +19,90 @@ public class Civilization {
 
     public static void main(String[] args) {
 
+        //Starts the game, asks user to choose civilization and to name
+        // his/her first city
+        System.out.println("Welcome to Civilization!");
+
+        String userCiv = chooseCiv(civArray);
+
+        System.out.println("You have chosen the " + userCiv
+            + " civilization!");
+        System.out.println("\nWhat will your first city's name be?");
+        cityArray[0] = scan.nextLine();
+        numCities++;
+
         while(playing) {
             //Your game code here
+            civObj.turn();
 
-            System.out.println("Welcome to Civilization!");
-
-            String userCiv = chooseCiv(civArray);
-
-            System.out.println("You have chosen the " + userCiv
-                + " civilization!");
-            System.out.println("\nWhat will your first city's name be?");
-            cityArray[0] = scan.nextLine();
-            numCities++;
-            civObj.displayStatus();
-
-            //Use this to break out of the game loop.
-            //Feel free to move it around.
-            playing = false;
+            if (techPoints == 20) {
+                System.out.println("You have reached 20 Technology Points!");
+                System.out.println("You win!");
+                playing = false;
+            }
+            else if (attacks == 10) {
+                System.out.println("You have destroyed the enemy city!");
+                System.out.println("You win!");
+                playing = false;
+            }
         }
 
 
     }
 
+    //Method to handle all turn-related actions
+    public static void turn() {
+        boolean hasChosen = false;
+        String choice = "";
+
+        //Adds per-turn resources, gold, and happiness
+        if (turn != 0) {
+            resources++;
+            if (happiness > 20)
+                resources = resources + 5*numCities;
+            gold = gold + 3*numCities;
+            if (happiness % 2 == 0)
+                happiness++;
+            else
+                happiness = happiness - 3;
+        }
+
+        //Takes action input and ensures that it is valid
+        System.out.println("\nTurn " + turn);
+        civObj.displayStatus();
+        System.out.println("\nWhat would you like to do this turn?");
+        for (String str : choiceArray)
+            System.out.println("\n" + str);
+
+        while (hasChosen == false) {
+            System.out.println("\nChoose an action.");
+            choice = scan.nextLine();
+
+            for (int i = 0; i < choiceArray.length; i++)
+                if (choice.equalsIgnoreCase(choiceArray[i])) {
+                    hasChosen = true;
+                }
+        }
+
+        //Calls corresponding method for the user's choice
+        // or increments turn if user chooses "End Turn"
+        if (choice.equalsIgnoreCase(choiceArray[0]))
+            civObj.settleCity();
+        else if (choice.equalsIgnoreCase(choiceArray[1]))
+            civObj.demolishCity();
+        else if (choice.equalsIgnoreCase(choiceArray[2]))
+            civObj.buildMilitia();
+        else if (choice.equalsIgnoreCase(choiceArray[3]))
+            civObj.researchTechnology();
+        else if (choice.equalsIgnoreCase(choiceArray[4]))
+            civObj.attackCity();
+        else
+            turn++;
+    }
+
     //Method that displays all resources, properties, and cities
     public static void displayStatus() {
-        System.out.println("\nStatus"
+        System.out.println("\nTurn" + turn + " Status"
             + "\nResources:\t\t" + decimalFormat.format(resources)
             + "\nGold:\t\t\t" + decimalFormat.format(gold)
             + "\nMilitary Units\t\t" + militaryUnits
@@ -63,7 +123,7 @@ public class Civilization {
         String civ = "";
         //Scanner scan = new Scanner(System.in);
 
-        System.out.println("Please choose a civilization."
+        System.out.println("\nPlease choose a civilization."
             + "\nCivilizations:\n");
         for (String str : civilizations)
             System.out.println(str);
@@ -79,17 +139,6 @@ public class Civilization {
         return civ;
     }
 
-    //Adds per-turn resources/happiness/gold to user's total
-    public static void nextTurn() {
-        resources++;
-        if (happiness > 20)
-            resources = resources + 5*numCities;
-        gold = gold + 3*numCities;
-        if (happiness % 2 == 0)
-            happiness++;
-        else
-            happiness = happiness - 3;
-    }
 
     //Settles a new city
     public static void settleCity() {
@@ -111,7 +160,9 @@ public class Civilization {
             gold -= 15.5;
         }
         else
-            System.out.println("You have too many cities.");
+            System.out.println("\nYou have too many cities.");
+
+        turn++;
     }
 
     //Demolishes a city
@@ -142,9 +193,54 @@ public class Civilization {
                     System.out.println("You have destroyed " + city);
                     cityArray[i] = null;
                 }
+            numCities--;
             resources += 1.5;
         }
         else
-            System.out.println("You do not have enough cities.");
+            System.out.println("\nYou do not have enough cities.");
+
+        turn++;
+    }
+
+    //Spends 5 gold and 3 resources to build another military unit
+    public static void buildMilitia() {
+        if (gold >= 5 && resources >= 3) {
+            militaryUnits++;
+            gold -= 5;
+            resources -= 3;
+            System.out.println("\nYou have expanded your military!");
+        }
+        else
+            System.out.println("\nYou lack sufficient materials.");
+
+        turn++;
+    }
+
+    //Spends 50 gold and 2 resources to receive one Technology Point
+    public static void researchTechnology() {
+        if (gold >= 50 && resources >= 2) {
+            techPoints++;
+            gold -= 50;
+            resources -= 2;
+            System.out.println("\nYou have gained a Technology Point!");
+        }
+        else
+            System.out.println("\nYou lack sufficient materials.");
+
+        turn++;
+    }
+
+    //Spends 6 military units and 3 happiness to attack an enemy city
+    public static void attackCity() {
+        if (militaryUnits >= 6) {
+            attacks++;
+            militaryUnits -= 6;
+            happiness -= 3;
+            System.out.println("\nYou have attacked an enemy city!");
+        }
+        else
+            System.out.println("\nYou lack sufficient materials.");
+
+        turn++;
     }
 }
