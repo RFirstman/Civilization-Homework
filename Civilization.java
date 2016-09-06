@@ -107,7 +107,7 @@ public class Civilization {
 
     //Method that displays all resources, properties, and cities
     public static void displayStatus() {
-        System.out.println("\nTurn" + turn + " Status"
+        System.out.println("\nTurn " + turn + " Status"
             + "\nResources:\t\t" + decimalFormat.format(resources)
             + "\nGold:\t\t\t" + decimalFormat.format(gold)
             + "\nMilitary Units\t\t" + militaryUnits
@@ -160,21 +160,25 @@ public class Civilization {
             }
         }
         //Ensures the user has at least one slot for a city
-        if (numCities < 5) {
-            for (int i = 0; i < 5; i++) {
-                if (cityArray[i] == null) {
-                    System.out.println("\nWhat would you like to name your "
-                        + "city?");
-                    cityArray[i] = scan.nextLine();
-                    System.out.println("You have settled " + cityArray[i]
-                        + "!");
-                    break;
+        if (gold >= 15.5) {
+            if (numCities < 5) {
+                for (int i = 0; i < 5; i++) {
+                    if (cityArray[i] == null) {
+                        System.out.println("\nWhat would you like to name your "
+                            + "city?");
+                        cityArray[i] = scan.nextLine();
+                        System.out.println("You have settled " + cityArray[i]
+                            + "!");
+                        break;
+                    }
                 }
+                numCities++;
+                gold -= 15.5;
+            } else {
+                System.out.println("\nYou have too many cities.");
             }
-            numCities++;
-            gold -= 15.5;
         } else {
-            System.out.println("\nYou have too many cities.");
+            System.out.println("\nInsufficient Gold.");
         }
 
         turn++;
