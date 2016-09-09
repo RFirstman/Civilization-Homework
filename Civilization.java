@@ -9,7 +9,6 @@ public class Civilization {
     static int attacks = 0, militaryUnits = 0, techPoints = 0;
     static int happiness = 10, numCities = 0, turn = 0;
     static double gold = 20, resources = 30;
-    static Civilization civObj = new Civilization();
     static DecimalFormat decimalFormat = new DecimalFormat("###.00");
     static String[] civArray = {"American", "Zulu", "English",
         "Chinese"};
@@ -34,7 +33,7 @@ public class Civilization {
 
         while (playing) {
             //Your game code here
-            civObj.turn();
+            turn();
 
             if (techPoints == 20) {
                 System.out.println("You have reached 20 Technology Points!");
@@ -71,7 +70,7 @@ public class Civilization {
 
         //Takes action input and ensures that it is valid
         System.out.println("\nTurn " + turn);
-        civObj.displayStatus();
+        displayStatus();
         System.out.println("\nWhat would you like to do this turn?");
         for (String str : choiceArray) {
             System.out.println("\n" + str);
@@ -91,15 +90,15 @@ public class Civilization {
         //Calls corresponding method for the user's choice
         // or increments turn if user chooses "End Turn"
         if (choice.equalsIgnoreCase(choiceArray[0])) {
-            civObj.settleCity();
+            settleCity();
         } else if (choice.equalsIgnoreCase(choiceArray[1])) {
-            civObj.demolishCity();
+            demolishCity();
         } else if (choice.equalsIgnoreCase(choiceArray[2])) {
-            civObj.buildMilitia();
+            buildMilitia();
         } else if (choice.equalsIgnoreCase(choiceArray[3])) {
-            civObj.researchTechnology();
+            researchTechnology();
         } else if (choice.equalsIgnoreCase(choiceArray[4])) {
-            civObj.attackCity();
+            attackCity();
         } else {
             turn++;
         }
