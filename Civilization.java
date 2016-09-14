@@ -31,8 +31,8 @@ public class Civilization {
         cityArray[0] = scan.nextLine();
         numCities++;
 
+        //main playing loop
         while (playing) {
-            //Your game code here
             turn();
 
             if (techPoints == 20) {
@@ -76,6 +76,7 @@ public class Civilization {
             System.out.println("\n" + str);
         }
 
+        //Ensures choice input is valid
         while (hasntChosen) {
             System.out.println("\nChoose an action.");
             choice = scan.nextLine();
@@ -135,6 +136,7 @@ public class Civilization {
             System.out.println(str);
         }
 
+        //Ensures civilization input is valid
         while (hasntChosen) {
             System.out.println("\nEnter your civilization:");
             civ = scan.nextLine();
