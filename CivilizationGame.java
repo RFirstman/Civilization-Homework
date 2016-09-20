@@ -42,6 +42,10 @@ public class CivilizationGame {
                 + ", and a build experience of "
                 + egypt.getTechnology().getBuildExperience()
                 + ".\n");
+            System.out.println("You have " + egypt.getTreasury().getCoins()
+                + " coins in your treasury, "
+                + egypt.getPopulation().getWarriors() + " warriors, and "
+                + egypt.getPopulation().getCivilians() + " civilians.\n")
             System.out.println("What would you like to do?\n"
                 + "1. Build my empire\n"
                 + "2. CONQUER\n"
@@ -122,9 +126,7 @@ public class CivilizationGame {
 
         System.out.println("What would you like to build?\n"
             + "1. Pyramids! Glory! Pyramids require 500 gold and 100 workers.\n"
-            + "2. Houses. My people need homes! Houses require 50 gold "
-            + "and 10 workers.\n"
-            + "3. Nothing. I'm good for now.\n");
+            + "2. Nothing. I'm good for now.\n");
         int buildMove = scan.nextInt();
         scan.nextLine();
         String print = "\n";
@@ -132,10 +134,6 @@ public class CivilizationGame {
             print += egypt.buildPyramid(settlement) ? "Wow, what a beautiful"
                 + " pyramid." : "You need enough workers AND gold to build"
                 + " this structure.";
-        } else if (buildMove == 2) {
-            print += egypt.buildHouse(settlement) ? "Congratulations on your "
-                + "new home!"
-                : "You need enough workers AND gold to build this structure.";
         }
         System.out.println(print + "\n");
 
@@ -293,6 +291,10 @@ public class CivilizationGame {
                 + ", and a build experience of "
                 + qin.getTechnology().getBuildExperience()
                 + ".\n");
+            System.out.println("You have " + qin.getTreasury().getCoins()
+                + " coins in your treasury, "
+                + qin.getPopulation().getWarriors() + " warriors, and "
+                + qin.getPopulation().getCivilians() + " civilians.\n")
             System.out.println("Welcome to the Qin Dynasty - what would you "
                 + "like to do?\n"
                 + "1. Build my empire\n"
@@ -447,7 +449,7 @@ public class CivilizationGame {
     }
 
     private static void educate(QinDynasty qin) {
-        qin.studyLegalism();
+        qin.establishLegalism();
         System.out.println("\nYour citizens are studying Legalism! Keep "
             + "producing governmental philosophy!\n");
     }
@@ -456,7 +458,7 @@ public class CivilizationGame {
         RomanEmpire rome = new RomanEmpire();
         while (!rome.getStrategy().conqueredTheWorld()
             && !rome.getTechnology().hasTechnologyWin()) {
-            System.out.println("\n\nWelcome to Egypt -"
+            System.out.println("\n\nWelcome to Rome -"
                 + " you have a strategy level of "
                 + rome.getStrategy().getStrategyLevel()
                 + ", an understanding of "
@@ -464,7 +466,11 @@ public class CivilizationGame {
                 + ", and a build experience of "
                 + rome.getTechnology().getBuildExperience()
                 + ".\n");
-            System.out.println("Welcome to Egypt - what would you like to do?\n"
+            System.out.println("You have " + rome.getTreasury().getCoins()
+                + " coins in your treasury, "
+                + rome.getPopulation().getWarriors() + " warriors, and "
+                + rome.getPopulation().getCivilians() + " civilians.\n")
+            System.out.println("Welcome to Rome - what would you like to do?\n"
                 + "1. Build my empire\n"
                 + "2. CONQUER\n"
                 + "3. Educate my citizens\n"
