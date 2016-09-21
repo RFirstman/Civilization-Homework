@@ -11,6 +11,18 @@ public class Population {
         happiness = 200;
     }
 
+    public int getCivilians() {
+        return civilians;
+    }
+
+    public int getWarriors() {
+        return warriors;
+    }
+
+    public int getHappiness() {
+        return happiness;
+    }
+
     public void increaseHappiness(int happiness) {
         this.happiness += happiness;
     }
