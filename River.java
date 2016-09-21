@@ -3,16 +3,20 @@ import java.util.Random;
 public class River {
     private static Random rand = new Random();
 
-    private String riverName;
+    private String name;
     private Fish[] fish;
     private int numFish = 0;
 
-    public River(String riverName) {
-        this.riverName = riverName
+    public River(String name) {
+        this.name = name
 
         fish = new Fish[5];
         numFish = 0;
         replenishFish();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Fish getFish() {

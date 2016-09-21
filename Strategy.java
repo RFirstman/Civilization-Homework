@@ -4,12 +4,9 @@ public class Strategy {
     private int strategyLevel;
     private boolean conqueredTheWorld;
 
-    public Strategy(int strategyLevel) {
-        this.strategyLevel = strategyLevel;
-    }
-
     public Strategy() {
-        this(0);
+        strategyLevel = 0;
+        conqueredTheWorld = false;
     }
 
     public int getStrategyLevel() {
@@ -31,6 +28,10 @@ public class Strategy {
         if (strategyLevel > 180) {
             conqueredTheWorld = true;
         }
+    }
+
+    public boolean conqueredTheWorld() {
+        return conqueredTheWorld;
     }
 
 }

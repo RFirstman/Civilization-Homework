@@ -1,8 +1,8 @@
 public class Treasury {
     private int coins;
 
-    public Coins(int coins) {
-        this.coins = coins;
+    public Treasury() {
+        coins = 200;
     }
 
     //Returns number of coins contained in Treasury object

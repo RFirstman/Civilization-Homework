@@ -1,10 +1,14 @@
 public class Technology {
-    private boolean foundMeaningOfLife = false;
-    private boolean builtWonderOfTheWorld = false;
-    private int understanding = 0;
-    private int experienceLevel = 0;
+    private boolean foundMeaningOfLife;
+    private boolean builtWonderOfTheWorld;
+    private int understanding;
+    private int experienceLevel;
 
     public Technology() {
+        foundMeaningOfLife = false;
+        builtWonderOfTheWorld = false;
+        understanding = 0;
+        experienceLevel = 0;
     }
 
     public int getUnderstanding() {
