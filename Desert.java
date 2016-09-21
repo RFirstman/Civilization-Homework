@@ -1,12 +1,26 @@
 import java.util.Scanner;
+import java.util.Random;
 
 public class Desert {
     private Scanner scan = new Scanner(System.in);
+    private Random rand = new Random();
+
+    private boolean isLost;
 
     public int findTreasure() {
         // YOUR CODE HERE
         // A valid treasure trove must be greater than 0
-        return -1;
+        isLost = false;
+        if (rand.nextInt(10) == 0) {
+            while (isLost) {
+                if (!lost()) {
+                    isLost = false;
+                }
+            }
+        } else {
+            return 1 + rand.nextInt(500);
+        }
+
     }
 
     public boolean lost() {

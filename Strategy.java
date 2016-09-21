@@ -33,5 +33,4 @@ public class Strategy {
         }
     }
 
-    public boolean has
 }

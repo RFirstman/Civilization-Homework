@@ -15,7 +15,7 @@ public class Technology {
         return experienceLevel;
     }
 
-    public void Philosophize() {
+    public void philosophize() {
         understanding += 25;
         checkCondition();
     }
