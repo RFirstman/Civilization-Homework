@@ -1,15 +1,15 @@
-public class Egypt {
+public class QinDynasty {
     private Population population = new Population();
     private Treasury treasury = new Treasury();
     private CoalMine coalMine = new CoalMine();
-    private River river = new River("Nile");
+    private River river = new River("Wei");
     private Technology technology = new Technology();
     private Strategy strategy = new Strategy();
-    private Desert desert = new Desert();
+    private Hills hills = new Hills();
     private Settlement[] settlementArray;
     private numSettlements;
 
-    public Egypt() {
+    public RomanEmpire() {
         settlementArray = new Settlement[10];
         numSettlements = 0;
     }
@@ -38,8 +38,8 @@ public class Egypt {
         return Strategy;
     }
 
-    public Desert getDesert() {
-        return desert;
+    public Desert getHills() {
+        return hills;
     }
 
     public int getNumSettlements() {
@@ -57,18 +57,29 @@ public class Egypt {
         }
     }
 
-    public boolean buildPyramid(Settlement settlement) {
-        if (treasury.getCoins() >= 500
-            && population.getCivilians() >= 100) {
-            settlement.build(treasury.getCoins(), population, 500, 100);
+    public boolean buildWall(Settlement settlement) {
+        if (treasury.getcoins() >= 1000
+            && population.getCivilians >= 100) {
+            settlement.build(treasury.getCoins(), population, 1000, 100);
             technology.increaseExperience(10);
             return true;
         }
         return false;
     }
 
-    public void practiceHieroglyphics() {
-        technology.improveWriting();
-        population.increaseHappiness(10);
+    public boolean buildHouse(Settlement settlement) {
+        if (treasury.getcoins() >= 30
+            && population.getCivilians() >= 8) {
+            settlement.build(treasury.getCoins(), population, 30, 8);
+            technology.increaseExperience(10);
+            return true;
+        }
+        return false;
+    }
+
+    public void establishLegalism() {
+        if (population.getHappiness() >= 20) {
+            technology.philosophize();
+        }
     }
 }

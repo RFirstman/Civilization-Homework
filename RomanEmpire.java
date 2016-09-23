@@ -1,15 +1,15 @@
-public class Egypt {
+public class RomanEmpire {
     private Population population = new Population();
     private Treasury treasury = new Treasury();
     private CoalMine coalMine = new CoalMine();
-    private River river = new River("Nile");
+    private River river = new River("Tiber");
     private Technology technology = new Technology();
     private Strategy strategy = new Strategy();
-    private Desert desert = new Desert();
+    private Hills hills = new Hills();
     private Settlement[] settlementArray;
     private numSettlements;
 
-    public Egypt() {
+    public RomanEmpire() {
         settlementArray = new Settlement[10];
         numSettlements = 0;
     }
@@ -38,8 +38,8 @@ public class Egypt {
         return Strategy;
     }
 
-    public Desert getDesert() {
-        return desert;
+    public Desert getHills() {
+        return hills;
     }
 
     public int getNumSettlements() {
@@ -57,18 +57,40 @@ public class Egypt {
         }
     }
 
-    public boolean buildPyramid(Settlement settlement) {
-        if (treasury.getCoins() >= 500
-            && population.getCivilians() >= 100) {
-            settlement.build(treasury.getCoins(), population, 500, 100);
+    public boolean buildAqueduct(Settlement settlement) {
+        if (treasury.getcoins() >= 250
+            && population.getCivilians() >= 130) {
+            settlement.build(treasury.getCoins(), population, 250, 130);
             technology.increaseExperience(10);
             return true;
         }
         return false;
     }
 
-    public void practiceHieroglyphics() {
-        technology.improveWriting();
-        population.increaseHappiness(10);
+    public boolean buildBathHouse(Settlement settlement) {
+        if (treasury.getcoins() >= 110
+            && population.getCivilians() >= 20) {
+            settlement.build(treasury.getCoins(), population, 110, 20);
+            technology.increaseExperience(10);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean buildVilla(Settlement settlement) {
+        if (treasury.getcoins() >= 80
+            && population.getCivilians() >= 15) {
+            settlement.build(treasury.getCoins(), population, 80, 15);
+            technology.increaseExperience(5);
+            return true;
+        }
+        return false;
+    }
+
+    public void studyPhilosophy() {
+        if (population.getHappiness() >= 10) {
+            technology.philosophize();
+            population.decreaseHappines(10);
+        }
     }
 }

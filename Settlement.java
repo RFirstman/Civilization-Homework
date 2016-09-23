@@ -11,8 +11,7 @@ public class Settlement {
     public boolean build(int allottedMoney, Population population, int cost,
         int workersRequired) {
 
-        if (cost < allottedMoney
-            && workersRequired < population.getCivilians()) {
+        if (treasury.spend(cost) && population.canWork(workersRequired)) {
             Building aBuilding = new Building(cost, workersRequired);
             addBuilding(aBuilding);
         }
