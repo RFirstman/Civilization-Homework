@@ -27,12 +27,12 @@ public class Population {
         this.warriors = warriors;
     }
 
-    public void increaseHappiness(int happiness) {
-        this.happiness += happiness;
+    public void increaseHappiness(int increase) {
+        happiness += increase;
     }
 
-    public void decreaseHappiness(int happiness) {
-        this.happiness -= happiness;
+    public void decreaseHappiness(int decrease) {
+        happiness -= decrease;
     }
 
     public boolean canWork(int workersNeeded) {

@@ -18,7 +18,7 @@ public class Treasury {
             coins -= cost;
             return true;
         }
-       return false;
+        return false;
     }
 
     public void earn(int earnings) {

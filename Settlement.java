@@ -37,7 +37,7 @@ public class Settlement {
     }
 
     public Building[] expandSettlement(Building[] buildingArray) {
-        Building[] tempArray = new Building[buildingArray.length*2];
+        Building[] tempArray = new Building[buildingArray.length * 2];
 
         for (int i = 0; i < buildingArray.length; i++) {
             tempArray[i] = buildingArray[i];
