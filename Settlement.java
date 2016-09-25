@@ -1,20 +1,28 @@
 public class Settlement {
-    private Building[] buildings = new Building[1];
+    private Building[] buildings;
     private int numBuildings;
-    private String settlement;
+    private String name;
 
-    public Settlement(String settlement) {
-        this.settlement = settlement;
+    public Settlement(String name) {
+        buildings = new Building[1];
+        this.name = name;
         numBuildings = 0;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean build(int allottedMoney, Population population, int cost,
         int workersRequired) {
 
-        if (treasury.spend(cost) && population.canWork(workersRequired)) {
+        if (allottedMoney >= cost
+            && population.getCivilians() >= workersRequired) {
             Building aBuilding = new Building(cost, workersRequired);
             addBuilding(aBuilding);
+            return true;
         }
+        return false;
     }
 
     public void addBuilding(Building building) {
@@ -22,14 +30,14 @@ public class Settlement {
             buildings[numBuildings] = building;
             numBuildings++;
         } else {
-            buildings = incrementArray(buildings);
+            buildings = expandSettlement(buildings);
             buildings[numBuildings] = building;
             numBuildings++;
         }
     }
 
     public Building[] expandSettlement(Building[] buildingArray) {
-        private Building[] tempArray = new Building[buildingArray.length*2];
+        Building[] tempArray = new Building[buildingArray.length*2];
 
         for (int i = 0; i < buildingArray.length; i++) {
             tempArray[i] = buildingArray[i];

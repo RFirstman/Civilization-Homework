@@ -7,7 +7,7 @@ public class Egypt {
     private Strategy strategy = new Strategy();
     private Desert desert = new Desert();
     private Settlement[] settlementArray;
-    private numSettlements;
+    private int numSettlements;
 
     public Egypt() {
         settlementArray = new Settlement[10];
@@ -35,7 +35,7 @@ public class Egypt {
     }
 
     public Strategy getStrategy() {
-        return Strategy;
+        return strategy;
     }
 
     public Desert getDesert() {
@@ -46,6 +46,10 @@ public class Egypt {
         return numSettlements;
     }
 
+    public Settlement[] getSettlements() {
+        return settlementArray;
+    }
+
     public boolean settle(Settlement settlement) {
         for (int i = 0; i < settlementArray.length; i++) {
             if (settlementArray[i] == null) {
@@ -53,13 +57,12 @@ public class Egypt {
                 numSettlements++;
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     public boolean buildPyramid(Settlement settlement) {
-        if (treasury.getCoins() >= 500
-            && population.getCivilians() >= 100) {
+        if (treasury.spend(500) && population.canWork(100)) {
             settlement.build(treasury.getCoins(), population, 500, 100);
             technology.increaseExperience(10);
             return true;

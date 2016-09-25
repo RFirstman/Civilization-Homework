@@ -29,13 +29,13 @@ public class Technology {
         checkCondition();
     }
 
-    public increaseExperience(int experience) {
+    public void increaseExperience(int experience) {
         experienceLevel += experience;
     }
 
     //Checks if experienceLevel and foundMeaningOfLife are over 200 and sets
-    //the appropriate boolean
-    private checkCondition() {
+    //the appropriate boolean value
+    private void checkCondition() {
         if (understanding > 200) {
             foundMeaningOfLife = true;
         }
@@ -47,8 +47,9 @@ public class Technology {
 
     //Returns true if Technology win condition is reached
     public boolean hasTechnologyWin() {
-        if (foundMeaningOfLife() && builtWonderOfTheWorld) {
+        if (foundMeaningOfLife && builtWonderOfTheWorld) {
             return true;
         }
+        return false;
     }
 }

@@ -23,6 +23,10 @@ public class Population {
         return happiness;
     }
 
+    public void setWarriors(int warriors) {
+        this.warriors = warriors;
+    }
+
     public void increaseHappiness(int happiness) {
         this.happiness += happiness;
     }
@@ -53,7 +57,7 @@ public class Population {
     }
 
     public Fish fish(River river) {
-        return river.fish();
+        return river.getFish();
     }
 
     public boolean canCook(Game game, CoalMine mine) {
@@ -63,7 +67,9 @@ public class Population {
             }
             warriors += 40;
             civilians += 60;
+            return true;
         }
+        return false;
     }
 
     public boolean canCook(Fish fish, CoalMine mine) {
@@ -73,6 +79,8 @@ public class Population {
             }
             warriors += 10;
             civilians += 15;
+            return true;
         }
+        return false;
     }
 }

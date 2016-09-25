@@ -8,7 +8,7 @@ public class River {
     private int numFish = 0;
 
     public River(String name) {
-        this.name = name
+        this.name = name;
 
         fish = new Fish[5];
         numFish = 0;
@@ -33,7 +33,7 @@ public class River {
 
     public boolean replenishFish() {
         if (numFish == 0) {
-            for (int = 0; i < fish.length; i++) {
+            for (int i = 0; i < fish.length; i++) {
                 fish[i] = new Fish(rand.nextInt(5));
             }
             numFish = fish.length;

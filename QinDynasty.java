@@ -7,9 +7,9 @@ public class QinDynasty {
     private Strategy strategy = new Strategy();
     private Hills hills = new Hills();
     private Settlement[] settlementArray;
-    private numSettlements;
+    private int numSettlements;
 
-    public RomanEmpire() {
+    public QinDynasty() {
         settlementArray = new Settlement[10];
         numSettlements = 0;
     }
@@ -35,15 +35,19 @@ public class QinDynasty {
     }
 
     public Strategy getStrategy() {
-        return Strategy;
+        return strategy;
     }
 
-    public Desert getHills() {
+    public Hills getHills() {
         return hills;
     }
 
     public int getNumSettlements() {
         return numSettlements;
+    }
+
+    public Settlement[] getSettlements() {
+        return settlementArray;
     }
 
     public boolean settle(Settlement settlement) {
@@ -53,13 +57,12 @@ public class QinDynasty {
                 numSettlements++;
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     public boolean buildWall(Settlement settlement) {
-        if (treasury.getcoins() >= 1000
-            && population.getCivilians >= 100) {
+        if (treasury.spend(1000) && population.canWork(100)) {
             settlement.build(treasury.getCoins(), population, 1000, 100);
             technology.increaseExperience(10);
             return true;
@@ -68,8 +71,7 @@ public class QinDynasty {
     }
 
     public boolean buildHouse(Settlement settlement) {
-        if (treasury.getcoins() >= 30
-            && population.getCivilians() >= 8) {
+        if (treasury.spend(30) && population.canWork(8)) {
             settlement.build(treasury.getCoins(), population, 30, 8);
             technology.increaseExperience(10);
             return true;

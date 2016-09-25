@@ -17,10 +17,8 @@ public class Desert {
                     isLost = false;
                 }
             }
-        } else {
-            return 1 + rand.nextInt(500);
         }
-
+        return 1 + rand.nextInt(500);
     }
 
     public boolean lost() {

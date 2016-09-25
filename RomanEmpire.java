@@ -7,7 +7,7 @@ public class RomanEmpire {
     private Strategy strategy = new Strategy();
     private Hills hills = new Hills();
     private Settlement[] settlementArray;
-    private numSettlements;
+    private int numSettlements;
 
     public RomanEmpire() {
         settlementArray = new Settlement[10];
@@ -35,15 +35,19 @@ public class RomanEmpire {
     }
 
     public Strategy getStrategy() {
-        return Strategy;
+        return strategy;
     }
 
-    public Desert getHills() {
+    public Hills getHills() {
         return hills;
     }
 
     public int getNumSettlements() {
         return numSettlements;
+    }
+
+    public Settlement[] getSettlements() {
+        return settlementArray;
     }
 
     public boolean settle(Settlement settlement) {
@@ -53,13 +57,12 @@ public class RomanEmpire {
                 numSettlements++;
                 return true;
             }
-            return false;
         }
+        return false;
     }
 
     public boolean buildAqueduct(Settlement settlement) {
-        if (treasury.getcoins() >= 250
-            && population.getCivilians() >= 130) {
+        if (treasury.spend(250) && population.canWork(130)) {
             settlement.build(treasury.getCoins(), population, 250, 130);
             technology.increaseExperience(10);
             return true;
@@ -68,8 +71,7 @@ public class RomanEmpire {
     }
 
     public boolean buildBathHouse(Settlement settlement) {
-        if (treasury.getcoins() >= 110
-            && population.getCivilians() >= 20) {
+        if (treasury.spend(110) && population.canWork(20)) {
             settlement.build(treasury.getCoins(), population, 110, 20);
             technology.increaseExperience(10);
             return true;
@@ -78,8 +80,7 @@ public class RomanEmpire {
     }
 
     public boolean buildVilla(Settlement settlement) {
-        if (treasury.getcoins() >= 80
-            && population.getCivilians() >= 15) {
+        if (treasury.spend(80) && population.canWork(15)) {
             settlement.build(treasury.getCoins(), population, 80, 15);
             technology.increaseExperience(5);
             return true;
@@ -90,7 +91,7 @@ public class RomanEmpire {
     public void studyPhilosophy() {
         if (population.getHappiness() >= 10) {
             technology.philosophize();
-            population.decreaseHappines(10);
+            population.decreaseHappiness(10);
         }
     }
 }
