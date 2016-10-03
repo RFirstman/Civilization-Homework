@@ -17,8 +17,6 @@ class Civilization {
     private int resources = 50;
     private int happiness = 50;
 
-    private int resources = 50;
-
     public Civilization(String name) {
         this.name = name;
     }
