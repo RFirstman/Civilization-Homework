@@ -1,29 +1,22 @@
+package model;
+
 public class RangedUnit extends MilitaryUnit {
 
-    private int health = 100;
-    private int baseEndurance = 10;
-    private int pay = 10;
-    private int initialGoldCost = 14;
-    private int initialFoodCost = 5;
-    private int initialResourceCost = 0;
-    private int damage = 30;
-
     public RangedUnit(Civilization owner) {
-        super(health, owner, baseEndurance, pay, initialGoldCost,
-            initialFoodCost, initialResourceCost, damage);
+        super(100, owner, 10, 10, 14, 5, 0, 30);
     }
 
     public char symbol() {
         return 'R';
     }
 
-    public void battle(MapObject mapObject) {
-        mapObject.damage(damage);
+    public void battle(MapObject obj) {
+        obj.damage(this.getDamage());
 
-        if (!mapObject.isDestroyed()
-            && (mapObject instanceof RangedUnit
-                || mapObject instanceof HybridUnit)) {
-            damage(mapObject.getDamage());
+        if (!obj.isDestroyed()
+            && (obj instanceof RangedUnit
+                || obj instanceof HybridUnit)) {
+            damage(((MilitaryUnit) obj).getDamage());
         }
     }
 

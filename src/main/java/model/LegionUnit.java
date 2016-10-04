@@ -1,8 +1,10 @@
+package model;
+
 public class LegionUnit extends MeleeUnit {
 
     public LegionUnit(Civilization owner) {
         super(owner);
-        setDamage((int)(getDamage() * 1.5));
+        setDamage((int) (getDamage() * 1.5));
     }
 
     @Override
@@ -11,12 +13,12 @@ public class LegionUnit extends MeleeUnit {
     }
 
     @Override
-    public void battle(MapObject mapObject) {
-        mapObject.damage(damage);
+    public void battle(MapObject obj) {
+        obj.damage(damage);
 
-        if (!mapObject.isDestroyed()
-            && (mapObject instanceof MeleeUnit)) {
-            damage(mapObject.getDamage());
+        if (!obj.isDestroyed()
+            && (obj instanceof MeleeUnit)) {
+            damage(((MilitaryUnit) obj).getDamage());
         }
     }
 

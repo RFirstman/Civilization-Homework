@@ -1,3 +1,5 @@
+package model;
+
 public class WarChariot extends RangedUnit {
 
     public WarChariot(Civilization owner) {

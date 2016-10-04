@@ -1,3 +1,5 @@
+package model;
+
 public class SiegeUnit extends MilitaryUnit {
 
     private int health = 200;
@@ -9,8 +11,7 @@ public class SiegeUnit extends MilitaryUnit {
     private int damage = 60;
 
     public SiegeUnit(Civilization owner) {
-        super(health, owner, baseEndurance, pay, initialGoldCost,
-            initialFoodCost, initialResourceCost, damage);
+        super(200, owner, 5, 10, 14, 5, 10, 60);
     }
 
     @Override
@@ -19,15 +20,16 @@ public class SiegeUnit extends MilitaryUnit {
     }
 
     @Override
-    public void battle(MapObject mapObject) {
-        if (mapObject instanceof Building) {
-            mapObject.damage(damage);
+    public void battle(MapObject obj) {
+        if (obj instanceof Building) {
+            obj.damage(this.getDamage());
         }
     }
 
     @Override
-    public void attack(MapObject mapObject) {
-        owner.getStrategy().siege();
-        battle();
-        canAttack = false;
+    public void attack(MapObject obj) {
+        this.getOwner().getStrategy().siege();
+        battle(obj);
+        this.setCanAttack(false);
     }
+}

@@ -33,7 +33,7 @@ public abstract class MilitaryUnit extends MapObject {
     }
 
     public void setBaseEndurance() {
-        this.baseEndurance = baseEndurance
+        this.baseEndurance = baseEndurance;
     }
 
     public int getPay() {
@@ -52,6 +52,10 @@ public abstract class MilitaryUnit extends MapObject {
         return initialResourceCost;
     }
 
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+
     @Override
     public void tick() {
         canAttack = true;
@@ -61,7 +65,7 @@ public abstract class MilitaryUnit extends MapObject {
 
     public void attack(MapObject mapObject) {
         owner.getStrategy().battle();
-        battle();
+        battle(mapObject);
         canAttack = false;
     }
 
