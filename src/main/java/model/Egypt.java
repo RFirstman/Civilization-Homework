@@ -26,4 +26,9 @@ class Egypt extends Civilization {
     public RangedUnit getRangedUnit() {
         return new WarChariot(this);
     }
+
+    @Override
+    public Landmark getLandmark() {
+        return new Pyramid(this);
+    }
 }

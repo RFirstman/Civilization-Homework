@@ -64,7 +64,7 @@ public abstract class MilitaryUnit extends MapObject {
     public abstract void battle(MapObject mapObject);
 
     public void attack(MapObject mapObject) {
-        owner.getStrategy().battle();
+        this.getOwner().getStrategy().battle();
         battle(mapObject);
         canAttack = false;
     }

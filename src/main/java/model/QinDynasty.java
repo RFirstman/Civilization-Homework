@@ -29,4 +29,9 @@ class QinDynasty extends Civilization {
         return new BlackPowerUnit(this);
     }
 
+    @Override
+    public Landmark getLandmark() {
+        return new GreatWall(this);
+    }
+
 }

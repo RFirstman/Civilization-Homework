@@ -27,4 +27,9 @@ class RomanEmpire extends Civilization {
         return new LegionUnit(this);
     }
 
+    @Override
+    public Landmark getLandmark() {
+        return new Coliseum(this);
+    }
+
 }
