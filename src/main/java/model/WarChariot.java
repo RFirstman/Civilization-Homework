@@ -4,7 +4,7 @@ public class WarChariot extends RangedUnit {
 
     public WarChariot(Civilization owner) {
         super(owner);
-        setBaseEndurance(getBaseEndurance * 2);
+        this.setBaseEndurance(this.getBaseEndurance() * 2);
     }
 
     @Override

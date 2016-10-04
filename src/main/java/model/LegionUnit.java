@@ -14,7 +14,7 @@ public class LegionUnit extends MeleeUnit {
 
     @Override
     public void battle(MapObject obj) {
-        obj.damage(damage);
+        obj.damage(getDamage());
 
         if (!obj.isDestroyed()
             && (obj instanceof MeleeUnit)) {

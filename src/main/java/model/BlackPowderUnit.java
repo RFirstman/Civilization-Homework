@@ -13,7 +13,7 @@ public class BlackPowderUnit extends SiegeUnit {
 
     @Override
     public void battle(MapObject obj) {
-        obj.damage(damage);
+        obj.damage(this.getDamage());
     }
 
     @Override

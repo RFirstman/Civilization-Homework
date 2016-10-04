@@ -1,22 +1,16 @@
 package model;
 
-public abstract class MilitaryUnit extends MapObject {
-    private int damage, baseEndurance, initialGoldCost, initialHappinessCost;
-    private int pay, initialFoodCost, initialResourceCost;
+public abstract class MilitaryUnit extends Unit {
+    private int damage;
     private boolean canAttack;
 
     public MilitaryUnit(int health, Civilization owner, int baseEndurance,
         int pay, int initialGoldCost, int initialFoodCost,
         int initialResourceCost, int damage) {
 
-        super(health, owner);
-        this.baseEndurance = baseEndurance;
-        this.pay = pay;
-        this.initialGoldCost = initialGoldCost;
-        this.initialFoodCost = initialFoodCost;
-        this.initialResourceCost = initialResourceCost;
+        super(health, owner, baseEndurance, pay, initialGoldCost,
+            initialFoodCost, initialResourceCost, 10);
         this.damage = damage;
-        initialHappinessCost = 10;
 
     }
 
@@ -28,36 +22,13 @@ public abstract class MilitaryUnit extends MapObject {
         this.damage = damage;
     }
 
-    public int getBaseEndurance() {
-        return baseEndurance;
-    }
-
-    public void setBaseEndurance() {
-        this.baseEndurance = baseEndurance;
-    }
-
-    public int getPay() {
-        return pay;
-    }
-
-    public int getInitialGoldCost() {
-        return initialGoldCost;
-    }
-
-    public int getInitialFoodCost() {
-        return initialFoodCost;
-    }
-
-    public int getInitialResourceCost() {
-        return initialResourceCost;
-    }
-
     public void setCanAttack(boolean canAttack) {
         this.canAttack = canAttack;
     }
 
     @Override
     public void tick() {
+        super.tick();
         canAttack = true;
     }
 
@@ -65,7 +36,7 @@ public abstract class MilitaryUnit extends MapObject {
 
     public void attack(MapObject mapObject) {
         this.getOwner().getStrategy().battle();
-        battle(mapObject);
+        this.battle(mapObject);
         canAttack = false;
     }
 

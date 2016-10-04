@@ -15,18 +15,18 @@ class QinDynasty extends Civilization {
 
     @Override
     public String explore() {
-        super.getHills().replenishGame();
+        this.getHills().replenishGame();
 
-        int tempGame = super.getHills.hunt();
-        super.makeFood(tempGame.getHealth());
+        Game tempGame = this.getHills().hunt();
+        this.makeFood(tempGame.getHealth());
 
         return "You have hunted in your hills and have made"
-            + tempGame.getHealth() + " food!"
+            + tempGame.getHealth() + " food!";
     }
 
     @Override
     public SiegeUnit getSiegeUnit() {
-        return new BlackPowerUnit(this);
+        return new BlackPowderUnit(this);
     }
 
     @Override

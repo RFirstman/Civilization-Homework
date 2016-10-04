@@ -102,7 +102,7 @@ public class Model {
         default:
             return false;
         }
-        return false;
+        //return false;
     }
 
     public static void addFirstSettlement(String name) {
