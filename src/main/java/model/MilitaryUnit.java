@@ -2,7 +2,6 @@ package model;
 
 public abstract class MilitaryUnit extends Unit {
     private int damage;
-    private boolean canAttack;
 
     public MilitaryUnit(int health, Civilization owner, int baseEndurance,
         int pay, int initialGoldCost, int initialFoodCost,
@@ -22,14 +21,10 @@ public abstract class MilitaryUnit extends Unit {
         this.damage = damage;
     }
 
-    public void setCanAttack(boolean canAttack) {
-        this.canAttack = canAttack;
-    }
-
     @Override
     public void tick() {
         super.tick();
-        canAttack = true;
+        setCanAttack(true);
     }
 
     public abstract void battle(MapObject mapObject);
@@ -37,11 +32,11 @@ public abstract class MilitaryUnit extends Unit {
     public void attack(MapObject mapObject) {
         this.getOwner().getStrategy().battle();
         this.battle(mapObject);
-        canAttack = false;
+        setCanAttack(false);
     }
 
     @Override
     public String toString() {
-        return "Military Unit " + super.toString();
+        return "Military Unit. " + super.toString();
     }
 }

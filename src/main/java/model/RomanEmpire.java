@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 class RomanEmpire extends Civilization {
 
     private Hills hills = new Hills();

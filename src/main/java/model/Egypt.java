@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Random;
-
 class Egypt extends Civilization {
 
     private Desert desert = new Desert();

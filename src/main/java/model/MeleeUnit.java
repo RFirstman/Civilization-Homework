@@ -22,6 +22,6 @@ public class MeleeUnit extends MilitaryUnit {
 
     @Override
     public String toString() {
-        return "Melee Unit " + super.toString();
+        return "Melee Unit. " + super.toString();
     }
 }

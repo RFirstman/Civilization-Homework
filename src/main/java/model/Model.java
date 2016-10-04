@@ -222,7 +222,24 @@ public class Model {
     }
 
     public static boolean attackSelected(int r, int c) {
-        // TODO: Make this actually work :D
+        MilitaryUnit u = (MilitaryUnit) (selected.getOccupant());
+        MapObject o = map.getTile(r, c).getOccupant();
+
+        if (!map.isEmpty(r , c)
+            && (o.getOwner() != playerCivilization)
+            && (u.getCanAttack())) {
+
+            u.attack(o);
+
+            if (o.isDestroyed()) {
+                map.getTile(r, c).setOccupant(null);
+            }
+            if (u.isDestroyed()) {
+                selected.setOccupant(null);
+            }
+
+            return true;
+        }
         return false;
     }
 

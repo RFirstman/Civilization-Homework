@@ -1,5 +1,4 @@
 package model;
-import java.util.Random;
 
 class QinDynasty extends Civilization {
 
