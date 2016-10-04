@@ -24,4 +24,9 @@ class QinDynasty extends Civilization {
             + tempGame.getHealth() + " food!"
     }
 
+    @Override
+    public SiegeUnit getSiegeUnit() {
+        return new BlackPowerUnit(this);
+    }
+
 }

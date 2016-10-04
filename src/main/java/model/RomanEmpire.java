@@ -22,4 +22,9 @@ class RomanEmpire extends Civilization {
             + tempCoal + " coal!";
     }
 
+    @Override
+    public MeleeUnit getMeleeUnit() {
+        return new LegionUnit(this);
+    }
+
 }

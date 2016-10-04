@@ -32,6 +32,10 @@ public abstract class MilitaryUnit extends MapObject {
         return baseEndurance;
     }
 
+    public void setBaseEndurance() {
+        this.baseEndurance = baseEndurance
+    }
+
     public int getPay() {
         return pay;
     }

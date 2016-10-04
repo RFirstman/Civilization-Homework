@@ -22,4 +22,8 @@ class Egypt extends Civilization {
             + treasure + " gold!";
     }
 
+    @Override
+    public RangedUnit getRangedUnit() {
+        return new WarChariot(this);
+    }
 }
