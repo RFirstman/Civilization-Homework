@@ -57,7 +57,7 @@ class FishingShack extends Building {
         try {
             return fish.remove(fish.getRandomElement());
         } catch (ElementDoesNotExistException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -78,7 +78,7 @@ class FishingShack extends Building {
             return false;
         }
 
-        for (int i = 0; i < 5; i++) {
+        while (fish.size() < 5) {
             fish.add(new Fish(rand.nextInt(5), rand.nextInt(5)));
         }
         return true;

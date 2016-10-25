@@ -31,13 +31,13 @@ class Technology {
         // TODO
         // your code here
         techPoints++;
-        Skill skill = Skill.getRandomSkill();
+        int newSize = skills.size() + 1;
 
-        while (skills.contains(skill)) {
-            skill = Skill.getRandomSkill();
+        while (skills.size() < newSize) {
+            skills.add(Skill.getRandomSkill());
         }
 
-        skills.add(skill);
+        //skills.add(skill);
     }
 
     /**
