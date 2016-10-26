@@ -36,8 +36,6 @@ class Technology {
         while (skills.size() < newSize) {
             skills.add(Skill.getRandomSkill());
         }
-
-        //skills.add(skill);
     }
 
     /**
