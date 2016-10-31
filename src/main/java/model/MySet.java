@@ -15,8 +15,7 @@ class MySet<E> implements SimpleSet<E> {
     }
 
     public boolean add(E e) {
-        deleteNull();
-        if ((!contains(e))) {
+        if (!(this.contains(e))) {
             incrementSet();
             elements[elements.length - 1] = e;
             size++;
@@ -26,24 +25,34 @@ class MySet<E> implements SimpleSet<E> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public E remove(E e) throws ElementDoesNotExistException {
-        if (!(contains(e))) {
+        if (!(this.contains(e))) {
             throw new ElementDoesNotExistException("Element does not exist", e);
         } else {
             E el = e;
+            E[] tempArray = (E[]) new Object[elements.length - 1];
+            int j = 0;
             for (int i = 0; i < elements.length; i++) {
-                if (elements[i].equals(e)) {
-                    elements[i] = null;
-                    size--;
+                if (!(elements[i].equals(e))) {
+                    tempArray[j] = elements[i];
+                    j++;
                 }
             }
+            size--;
+            elements = tempArray;
             return el;
         }
     }
 
     public boolean contains(E e) {
         for (int i = 0; i < elements.length; i++) {
-            if (elements[i].equals(e)) {
+            if (e == null) {
+                if (elements[i] == null) {
+                    return true;
+                }
+                return false;
+            } else if (elements[i].equals(e)) {
                 return true;
             }
         }
@@ -53,9 +62,9 @@ class MySet<E> implements SimpleSet<E> {
     @SuppressWarnings("unchecked")
     public E[] removeAll(E[] e) throws ElementDoesNotExistException {
         for (int i = 0; i < e.length; i++) {
-            if (!(contains(e[i]))) {
+            if (!(this.contains(e[i]))) {
                 throw new ElementDoesNotExistException("Object does not exist"
-                    + " in the set.", elements[i]);
+                    + " in the set.", e[i]);
             }
         }
 
@@ -69,11 +78,9 @@ class MySet<E> implements SimpleSet<E> {
         return tempE;
     }
 
+    @SuppressWarnings("unchecked")
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            elements[i] = null;
-        }
-        deleteNull();
+        elements = (E[]) new Object[0];
     }
 
     public int size() {
@@ -101,7 +108,6 @@ class MySet<E> implements SimpleSet<E> {
     }
 
     public E[] toArray() {
-        deleteNull();
         return elements;
     }
 
@@ -109,9 +115,12 @@ class MySet<E> implements SimpleSet<E> {
     public String toString() {
         String out = "";
 
-        deleteNull();
         for (int i = 0; i < elements.length; i++) {
-            out = out + " " + elements[i].toString();
+            if (elements[i] == null) {
+                out = out + "null ";
+            } else {
+                out = out + elements[i].toString() + " ";
+            }
         }
 
         return out;
@@ -129,31 +138,5 @@ class MySet<E> implements SimpleSet<E> {
         }
 
         elements = elTemp;
-    }
-
-    /**
-     * Deletes any null entries in elements and decrements
-     * the size of elements (and size variable) accordingly
-     */
-    @SuppressWarnings("unchecked")
-    private void deleteNull() {
-        int nullCount = 0;
-
-        for (int i = 0; i < elements.length; i++) {
-            if (elements[i] == null) {
-                nullCount++;
-            }
-        }
-
-        E[] elTemp = (E[]) new Object[size - nullCount];
-
-        for (int i = 0; i < size - nullCount; i++) {
-            if (elements[i] != null) {
-                elTemp[i] = elements[i];
-            }
-        }
-
-        elements = elTemp;
-        size -= nullCount;
     }
 }
