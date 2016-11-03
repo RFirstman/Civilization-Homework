@@ -1,5 +1,8 @@
 package model;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Collections;
+
 /**
  * A wrapper class for all of the Objects needed in the game. Also has methods
  * to facilitate interactions between these objects, and methods to interface
@@ -91,15 +94,32 @@ public class Model {
     }
 
     private static void simulateEnemies() {
-        civs.get(0).increaseHappiness(200);
-        civs.get(0).produceResources(100);
-        int i = 0;
-        while (i++ < 3) {
-            civs.get(1).getStrategy().battle();
-            civs.get(0).getTechnology().philosophize();
+        //Add more civilizations for show
+        civs.add(new Civilization("America"));
+        civs.add(new Civilization("Aztec"));
+        civs.add(new Civilization("China"));
+        civs.add(new Civilization("India"));
+        civs.add(new Civilization("Japan"));
+        java.util.Random rand = new java.util.Random();
+        for (Civilization c : civs) {
+            c.increaseHappiness(rand.nextInt(500) + 1);
+            c.produceResources(rand.nextInt(500) + 1);
+            int count = rand.nextInt(10) + 1;
+            int i = 0;
+            while (i++ < count) {
+                c.getStrategy().battle();
+            }
+            count = rand.nextInt(10) + 1;
+            i = 0;
+            while (i++ < count) {
+                c.getTechnology().philosophize();
+            }
+            count = rand.nextInt(5) + 1;
+            i = 0;
+            while (i++ < count) {
+                c.incrementNumSettlements();
+            }
         }
-        civs.get(0).getStrategy().battle();
-        civs.get(1).getTechnology().philosophize();
     }
 
     /**
@@ -111,28 +131,98 @@ public class Model {
         return playerCivilization.explore();
     }
 
+    //Comparator to compare civilizations by happiness
+    //Output reversed in order to make descending list.
+    static class HappinessComparator implements Comparator<Civilization> {
+
+        public int compare(Civilization a, Civilization b) {
+            return (-1) * (a.getHappiness() - b.getHappiness());
+        }
+    }
+
+    //Comparator to compare civilizations by technology
+    //Output reversed in order to make descending list.
+    static class TechComparator implements Comparator<Civilization> {
+
+        public int compare(Civilization a, Civilization b) {
+            return (-1) * (a.getTechnology().getTechPoints()
+                    - b.getTechnology().getTechPoints());
+        }
+    }
+
+    //Comparator to compare civilizations by amount of resources
+    //Output reversed in order to make descending list.
+    static class ResourceComparator implements Comparator<Civilization> {
+
+        public int compare(Civilization a, Civilization b) {
+            return (-1) * (a.getResources() - b.getResources());
+        }
+    }
+
+    //Comparator to compare civilizations by overall prowess
+    //(# Settlements and then strategy level)
+    //Output reversed in order to make descending list.
+    static class OverallProwessComparator implements Comparator<Civilization> {
+
+        public int compare(Civilization a, Civilization b) {
+            if (a.getNumSettlements() > b.getNumSettlements()) {
+                return -1;
+            } else if (a.getNumSettlements() < b.getNumSettlements()) {
+                return 1;
+            } else {
+                return a.compareTo(b);
+            }
+        }
+    }
+
     public static void standings(int choice) {
         int i = 1;
         switch (choice) {
         case 1:
             //Military Prowess
             System.out.println("People with the Pointiest Sticks:");
+            Collections.sort(civs);
+            for (Civilization civ : civs) {
+                System.out.printf("%s: %d%n", civ.toString(),
+                    civ.getStrategy().getStrategyLevel());
+            }
             break;
         case 2:
             //Citizen Happiness
             System.out.println("People with the most faithful Citizens:");
+            Collections.sort(civs, new HappinessComparator());
+            for (Civilization civ : civs) {
+                System.out.printf("%s: %d%n", civ.toString(),
+                    civ.getHappiness());
+            }
             break;
         case 3:
             //Tech Points
             System.out.println("People with the best Science:");
+            Collections.sort(civs, new TechComparator());
+            for (Civilization civ : civs) {
+                System.out.printf("%s: %d%n", civ.toString(),
+                    civ.getTechnology().getTechPoints());
+            }
             break;
         case 4:
             //Amount of resources
             System.out.println("People with the finest Resources:");
+            Collections.sort(civs, new ResourceComparator());
+            for (Civilization civ : civs) {
+                System.out.printf("%s: %d%n", civ.toString(),
+                    civ.getResources());
+            }
             break;
         case 5:
             //Overall Prowess
             System.out.println("People with the Fanciest Crowns");
+            Collections.sort(civs, new OverallProwessComparator());
+            for (Civilization civ : civs) {
+                System.out.printf("%s: Settlements - %d Military Level - %d%n",
+                    civ.toString(), civ.getNumSettlements(),
+                    civ.getStrategy().getStrategyLevel());
+            }
             break;
         default:
             break;

@@ -2,7 +2,6 @@ package model;
 
 import java.util.Random;
 import java.util.Iterator;
-import java.lang.Iterable;
 import java.util.NoSuchElementException;
 
 /**
