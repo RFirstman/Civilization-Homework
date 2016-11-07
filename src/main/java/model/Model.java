@@ -150,7 +150,10 @@ public class Model {
             //Sorts civs by happiness. (-1) * expression is used to make
             //list in descending order
             Collections.sort(civs, (Civilization a, Civilization b) -> {
-                return (-1) * (a.getHappiness() - b.getHappiness());
+                int happinessDiff = (-1)
+                    * (a.getHappiness() - b.getHappiness());
+                return (happinessDiff == 0) ? a.getName().compareTo(b.getName())
+                    : happinessDiff;
             });
 
             for (Civilization civ : civs) {
@@ -165,8 +168,10 @@ public class Model {
             //Sorts civs by tech points. (-1) * expression is used to make
             //list in descending order
             Collections.sort(civs, (Civilization a, Civilization b) -> {
-                return (-1) * (a.getTechnology().getTechPoints()
+                int techDiff = (-1) * (a.getTechnology().getTechPoints()
                     - b.getTechnology().getTechPoints());
+                return (techDiff == 0) ? a.getName().compareTo(b.getName())
+                    : techDiff;
             });
 
             for (Civilization civ : civs) {
@@ -179,9 +184,11 @@ public class Model {
             System.out.println("People with the finest Resources:");
 
             //Sorts civs by resources. (-1) * expression is used to make
-            //list in descending order
+            //list in descending order.
             Collections.sort(civs, (Civilization a, Civilization b) -> {
-                return (-1) * (a.getResources() - b.getResources());
+                int resourceDiff = (-1) * (a.getResources() - b.getResources());
+                return (resourceDiff == 0) ? a.getName().compareTo(b.getName())
+                    : resourceDiff;
             });
 
             for (Civilization civ : civs) {
