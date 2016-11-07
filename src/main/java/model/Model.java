@@ -131,50 +131,6 @@ public class Model {
         return playerCivilization.explore();
     }
 
-    //Comparator to compare civilizations by happiness
-    //Output reversed in order to make descending list.
-    static class HappinessComparator implements Comparator<Civilization> {
-
-        public int compare(Civilization a, Civilization b) {
-            return (-1) * (a.getHappiness() - b.getHappiness());
-        }
-    }
-
-    //Comparator to compare civilizations by technology
-    //Output reversed in order to make descending list.
-    static class TechComparator implements Comparator<Civilization> {
-
-        public int compare(Civilization a, Civilization b) {
-            return (-1) * (a.getTechnology().getTechPoints()
-                    - b.getTechnology().getTechPoints());
-        }
-    }
-
-    //Comparator to compare civilizations by amount of resources
-    //Output reversed in order to make descending list.
-    static class ResourceComparator implements Comparator<Civilization> {
-
-        public int compare(Civilization a, Civilization b) {
-            return (-1) * (a.getResources() - b.getResources());
-        }
-    }
-
-    //Comparator to compare civilizations by overall prowess
-    //(# Settlements and then strategy level)
-    //Output reversed in order to make descending list.
-    static class OverallProwessComparator implements Comparator<Civilization> {
-
-        public int compare(Civilization a, Civilization b) {
-            if (a.getNumSettlements() > b.getNumSettlements()) {
-                return -1;
-            } else if (a.getNumSettlements() < b.getNumSettlements()) {
-                return 1;
-            } else {
-                return a.compareTo(b);
-            }
-        }
-    }
-
     public static void standings(int choice) {
         int i = 1;
         switch (choice) {
@@ -190,7 +146,13 @@ public class Model {
         case 2:
             //Citizen Happiness
             System.out.println("People with the most faithful Citizens:");
-            Collections.sort(civs, new HappinessComparator());
+
+            //Sorts civs by happiness. (-1) * expression is used to make
+            //list in descending order
+            Collections.sort(civs, (Civilization a, Civilization b) -> {
+                return (-1) * (a.getHappiness() - b.getHappiness());
+            });
+
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
                     civ.getHappiness());
@@ -199,7 +161,14 @@ public class Model {
         case 3:
             //Tech Points
             System.out.println("People with the best Science:");
-            Collections.sort(civs, new TechComparator());
+
+            //Sorts civs by tech points. (-1) * expression is used to make
+            //list in descending order
+            Collections.sort(civs, (Civilization a, Civilization b) -> {
+                return (-1) * (a.getTechnology().getTechPoints()
+                    - b.getTechnology().getTechPoints());
+            });
+
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
                     civ.getTechnology().getTechPoints());
@@ -208,7 +177,13 @@ public class Model {
         case 4:
             //Amount of resources
             System.out.println("People with the finest Resources:");
-            Collections.sort(civs, new ResourceComparator());
+
+            //Sorts civs by resources. (-1) * expression is used to make
+            //list in descending order
+            Collections.sort(civs, (Civilization a, Civilization b) -> {
+                return (-1) * (a.getResources() - b.getResources());
+            });
+
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
                     civ.getResources());
@@ -217,7 +192,17 @@ public class Model {
         case 5:
             //Overall Prowess
             System.out.println("People with the Fanciest Crowns");
-            Collections.sort(civs, new OverallProwessComparator());
+
+            Collections.sort(civs, (Civilization a, Civilization b) -> {
+                if (a.getNumSettlements() > b.getNumSettlements()) {
+                    return -1;
+                } else if (a.getNumSettlements() < b.getNumSettlements()) {
+                    return 1;
+                } else {
+                    return a.compareTo(b);
+                }
+            });
+
             for (Civilization civ : civs) {
                 System.out.printf("%s: Settlements - %d Military Level - %d%n",
                     civ.toString(), civ.getNumSettlements(),
