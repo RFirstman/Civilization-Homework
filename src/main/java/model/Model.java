@@ -1,6 +1,5 @@
 package model;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Collections;
 
 /**
@@ -149,12 +148,14 @@ public class Model {
 
             //Sorts civs by happiness. (-1) * expression is used to make
             //list in descending order
-            Collections.sort(civs, (Civilization a, Civilization b) -> {
-                int happinessDiff = (-1)
-                    * (a.getHappiness() - b.getHappiness());
-                return (happinessDiff == 0) ? a.getName().compareTo(b.getName())
-                    : happinessDiff;
-            });
+            Collections.sort(civs, (Civilization a, Civilization b) ->
+                {
+                    int happinessDiff = (-1)
+                        * (a.getHappiness() - b.getHappiness());
+                    return (happinessDiff == 0)
+                        ? a.getName().compareTo(b.getName()) : happinessDiff;
+                }
+            );
 
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
@@ -167,12 +168,14 @@ public class Model {
 
             //Sorts civs by tech points. (-1) * expression is used to make
             //list in descending order
-            Collections.sort(civs, (Civilization a, Civilization b) -> {
-                int techDiff = (-1) * (a.getTechnology().getTechPoints()
-                    - b.getTechnology().getTechPoints());
-                return (techDiff == 0) ? a.getName().compareTo(b.getName())
-                    : techDiff;
-            });
+            Collections.sort(civs, (Civilization a, Civilization b) ->
+                {
+                    int techDiff = (-1) * (a.getTechnology().getTechPoints()
+                        - b.getTechnology().getTechPoints());
+                    return (techDiff == 0) ? a.getName().compareTo(b.getName())
+                        : techDiff;
+                }
+            );
 
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
@@ -185,11 +188,14 @@ public class Model {
 
             //Sorts civs by resources. (-1) * expression is used to make
             //list in descending order.
-            Collections.sort(civs, (Civilization a, Civilization b) -> {
-                int resourceDiff = (-1) * (a.getResources() - b.getResources());
-                return (resourceDiff == 0) ? a.getName().compareTo(b.getName())
-                    : resourceDiff;
-            });
+            Collections.sort(civs, (Civilization a, Civilization b) ->
+                {
+                    int resourceDiff = (-1)
+                        * (a.getResources() - b.getResources());
+                    return (resourceDiff == 0)
+                        ? a.getName().compareTo(b.getName()) : resourceDiff;
+                }
+            );
 
             for (Civilization civ : civs) {
                 System.out.printf("%s: %d%n", civ.toString(),
@@ -200,15 +206,17 @@ public class Model {
             //Overall Prowess
             System.out.println("People with the Fanciest Crowns");
 
-            Collections.sort(civs, (Civilization a, Civilization b) -> {
-                if (a.getNumSettlements() > b.getNumSettlements()) {
-                    return -1;
-                } else if (a.getNumSettlements() < b.getNumSettlements()) {
-                    return 1;
-                } else {
-                    return a.compareTo(b);
+            Collections.sort(civs, (Civilization a, Civilization b) ->
+                {
+                    if (a.getNumSettlements() > b.getNumSettlements()) {
+                        return -1;
+                    } else if (a.getNumSettlements() < b.getNumSettlements()) {
+                        return 1;
+                    } else {
+                        return a.compareTo(b);
+                    }
                 }
-            });
+            );
 
             for (Civilization civ : civs) {
                 System.out.printf("%s: Settlements - %d Military Level - %d%n",
